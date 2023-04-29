@@ -106,6 +106,9 @@ body {
 .button:hover {
 	opacity: .7;
 }
+.button_active {
+	background: rgb(90, 134, 217);
+}
 .button_wide {
 	flex: 1;
 }

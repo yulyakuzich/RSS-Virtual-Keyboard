@@ -1,77 +1,76 @@
 const ALL_KEYS = [
   [
-    { defaultText: '`' },
-    { defaultText: '1' },
-    { defaultText: '2' },
-    { defaultText: '3' },
-    { defaultText: '4' },
-    { defaultText: '5' },
-    { defaultText: '6' },
-    { defaultText: '7' },
-    { defaultText: '8' },
-    { defaultText: '9' },
-    { defaultText: '0' },
-    { defaultText: '-' },
-    { defaultText: '=' },
-    { defaultText: 'del', isWide: true },
+    { code: 'Backquote', defaultText: '`' },
+    { code: 'Digit1', defaultText: '1' },
+    { code: 'Digit2', defaultText: '2' },
+    { code: 'Digit3', defaultText: '3' },
+    { code: 'Digit4', defaultText: '4' },
+    { code: 'Digit5', defaultText: '5' },
+    { code: 'Digit6', defaultText: '6' },
+    { code: 'Digit7', defaultText: '7' },
+    { code: 'Digit8', defaultText: '8' },
+    { code: 'Digit9', defaultText: '9' },
+    { code: 'Digit0', defaultText: '0' },
+    { code: 'Minus', defaultText: '-' },
+    { code: 'Equal', defaultText: '=' },
+    { code: 'Backspace', defaultText: 'del', isWide: true },
   ],
   [
-    { defaultText: 'tab', isWide: true },
-    { defaultText: 'Q' },
-    { defaultText: 'W' },
-    { defaultText: 'E' },
-    { defaultText: 'R' },
-    { defaultText: 'T' },
-    { defaultText: 'Y' },
-    { defaultText: 'U' },
-    { defaultText: 'I' },
-    { defaultText: 'O' },
-    { defaultText: 'P' },
-    { defaultText: '[' },
-    { defaultText: ']' },
-    { defaultText: '\\' },
+    { code: 'Tab', defaultText: 'tab', isWide: true },
+    { code: 'KeyQ', defaultText: 'Q' },
+    { code: 'KeyW', defaultText: 'W' },
+    { code: 'KeyE', defaultText: 'E' },
+    { code: 'KeyR', defaultText: 'R' },
+    { code: 'KeyT', defaultText: 'T' },
+    { code: 'KeyY', defaultText: 'Y' },
+    { code: 'KeyU', defaultText: 'U' },
+    { code: 'KeyI', defaultText: 'I' },
+    { code: 'KeyO', defaultText: 'O' },
+    { code: 'KeyP', defaultText: 'P' },
+    { code: 'BracketLeft', defaultText: '[' },
+    { code: 'BracketRight', defaultText: ']' },
+    { code: 'Backslash', defaultText: '\\' },
   ],
   [
-    { defaultText: 'caps lock', isWide: true },
-    { defaultText: 'A' },
-    { defaultText: 'S' },
-    { defaultText: 'D' },
-    { defaultText: 'F' },
-    { defaultText: 'G' },
-    { defaultText: 'H' },
-    { defaultText: 'J' },
-    { defaultText: 'K' },
-    { defaultText: 'L' },
-    { defaultText: ';' },
-    { defaultText: '\'' },
-    { defaultText: 'return', isWide: true },
+    { code: 'CapsLock', defaultText: 'caps lock', isWide: true },
+    { code: 'KeyA', defaultText: 'A' },
+    { code: 'KeyS', defaultText: 'S' },
+    { code: 'KeyD', defaultText: 'D' },
+    { code: 'KeyF', defaultText: 'F' },
+    { code: 'KeyG', defaultText: 'G' },
+    { code: 'KeyH', defaultText: 'H' },
+    { code: 'KeyJ', defaultText: 'J' },
+    { code: 'KeyK', defaultText: 'K' },
+    { code: 'KeyL', defaultText: 'L' },
+    { code: 'Semicolon', defaultText: ';' },
+    { code: 'Quote', defaultText: '\'' },
+    { code: 'Enter', defaultText: 'return', isWide: true },
   ],
   [
-    { defaultText: 'shift', isWide: true },
-    { defaultText: 'Z' },
-    { defaultText: 'X' },
-    { defaultText: 'C' },
-    { defaultText: 'V' },
-    { defaultText: 'B' },
-    { defaultText: 'N' },
-    { defaultText: 'M' },
-    { defaultText: ',' },
-    { defaultText: '.' },
-    { defaultText: '/' },
-    { defaultText: '▲' },
-    { defaultText: 'shift' },
+    { code: 'ShiftLeft', defaultText: 'shift', isWide: true },
+    { code: 'KeyZ', defaultText: 'Z' },
+    { code: 'KeyX', defaultText: 'X' },
+    { code: 'KeyC', defaultText: 'C' },
+    { code: 'KeyV', defaultText: 'V' },
+    { code: 'KeyB', defaultText: 'B' },
+    { code: 'KeyN', defaultText: 'N' },
+    { code: 'KeyM', defaultText: 'M' },
+    { code: 'Comma', defaultText: ',' },
+    { code: 'Period', defaultText: '.' },
+    { code: 'Slash', defaultText: '/' },
+    { code: 'ArrowUp', defaultText: '▲' },
+    { code: 'ShiftRight', defaultText: 'shift' },
   ],
   [
-    { defaultText: 'fn' },
-    { defaultText: 'control' },
-    { defaultText: 'option' },
-    { defaultText: 'cmd' },
-    { defaultText: ' ', isWide: true },
-    { defaultText: 'cmd' },
-    { defaultText: 'option' },
-    { defaultText: '◄' },
-    { defaultText: '▼' },
-    { defaultText: '►' },
+    { code: 'ControlLeft', defaultText: 'control' },
+    { code: 'AltLeft', defaultText: 'option' },
+    { code: 'MetaLeft', defaultText: 'cmd' },
+    { code: 'Space', defaultText: ' ', isWide: true },
+    { code: 'MetaRight', defaultText: 'cmd' },
+    { code: 'AltRight', defaultText: 'option' },
+    { code: 'ArrowLeft', defaultText: '◄' },
+    { code: 'ArrowDown', defaultText: '▼' },
+    { code: 'ArrowRight', defaultText: '►' },
   ],
 ];
 
@@ -104,6 +103,7 @@ function renderPage() {
       if (key.isWide) {
         keyElement.classList.add('button_wide');
       }
+      keyElement.setAttribute('data-code', key.code);
       rowElement.append(keyElement);
     }
     keyboardContainer.append(rowElement);
@@ -114,6 +114,17 @@ function renderPage() {
   const descriptionTwo = createElement('p', 'description');
   descriptionTwo.innerHTML = 'Для переключения языка комбинация: левыe ctrl + shift';
   container.append(descriptionTwo);
+
+  const buttons = Array.from(document.querySelectorAll('.button'));
+
+  function handleKayDown(e) {
+    return buttons.find((b) => b.attributes['data-code'].value === e.code).classList.add('button_active');
+  }
+  function handleKeyUp(e) {
+    return buttons.find((b) => b.attributes['data-code'].value === e.code).classList.remove('button_active');
+  }
+  document.addEventListener('keydown', handleKayDown);
+  document.addEventListener('keyup', handleKeyUp);
 }
 
 renderPage();
