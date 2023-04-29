@@ -1,4 +1,4 @@
-const allKeys = [
+const ALL_KEYS = [
   [
     { defaultText: '`' },
     { defaultText: '1' },
@@ -75,4 +75,45 @@ const allKeys = [
   ],
 ];
 
-console.log(allKeys);
+// rendering page
+const body = document.getElementsByTagName('body')[0];
+
+function renderPage() {
+  function createElement(tag, className) {
+    const element = document.createElement(tag);
+    element.className = className;
+    return element;
+  }
+
+  const container = createElement('div', 'container');
+  body.append(container);
+  const title = createElement('h1', 'title');
+  title.innerHTML = 'RSS Виртуальная клавиатура';
+  container.append(title);
+  const textarea = createElement('textarea', 'textarea');
+  container.append(textarea);
+  const keyboardContainer = createElement('div', 'keyboard-container');
+  container.append(keyboardContainer);
+  for (let i = 0; i < ALL_KEYS.length; i += 1) {
+    const row = ALL_KEYS[i];
+    const rowElement = createElement('div', 'row');
+    for (let index = 0; index < row.length; index += 1) {
+      const key = row[index];
+      const keyElement = createElement('div', 'button');
+      keyElement.append(createElement('span').innerHTML = key.defaultText);
+      if (key.isWide) {
+        keyElement.classList.add('button_wide');
+      }
+      rowElement.append(keyElement);
+    }
+    keyboardContainer.append(rowElement);
+  }
+  const descriptionOne = createElement('p', 'description');
+  descriptionOne.innerHTML = 'Клавиатура создана в операционной системе iOS';
+  container.append(descriptionOne);
+  const descriptionTwo = createElement('p', 'description');
+  descriptionTwo.innerHTML = 'Для переключения языка комбинация: левыe ctrl + shift';
+  container.append(descriptionTwo);
+}
+
+renderPage();
