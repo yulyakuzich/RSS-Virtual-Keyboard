@@ -111,6 +111,12 @@ function renderPage() {
         textarea.focus();
         const startPos = textarea.selectionStart;
         const endPos = textarea.selectionEnd;
+        if (key.code === 'Backspace' && textarea.value.length) {
+          textarea.value = textarea.value.substring(0, textarea.value.length - 1);
+        }
+        // if (key.code === 'ArrowLeft') {
+        //   textarea.setSelectionRange(textarea.selectionEnd-1, textarea.selectionEnd-1);
+        // }
         textarea.value = textarea.value.substring(0, startPos)
           + (key.isNotInput ? '' : key.defaultText) + textarea.value.substring(endPos, textarea.value.length);
         textarea.selectionStart = startPos + key.defaultText.length;
@@ -118,6 +124,7 @@ function renderPage() {
         const event = new KeyboardEvent('keydown', { code: key.defaultText });
         textarea.dispatchEvent(event);
       });
+
       keyElement.addEventListener('mouseup', () => {
         keyElement.classList.remove('button_active');
       });
