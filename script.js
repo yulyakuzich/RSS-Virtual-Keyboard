@@ -110,15 +110,20 @@ function renderPage() {
         e.preventDefault();
         textarea.focus();
         const startPos = textarea.selectionStart;
+        console.log(startPos);
+        console.log(textarea.value);
         const endPos = textarea.selectionEnd;
         if (key.code === 'Backspace' && textarea.value.length) {
           textarea.value = textarea.value.substring(0, textarea.value.length - 1);
         }
+
         // if (key.code === 'ArrowLeft') {
         //   textarea.setSelectionRange(textarea.selectionEnd-1, textarea.selectionEnd-1);
         // }
         textarea.value = textarea.value.substring(0, startPos)
-          + (key.isNotInput ? '' : key.defaultText) + textarea.value.substring(endPos, textarea.value.length);
+          + (key.isNotInput ? '' : key.defaultText)
+          + (key.defaultText === 'return' ? '\n' : '')
+          + textarea.value.substring(endPos, textarea.value.length);
         textarea.selectionStart = startPos + key.defaultText.length;
         textarea.selectionEnd = startPos + key.defaultText.length;
         const event = new KeyboardEvent('keydown', { code: key.defaultText });
