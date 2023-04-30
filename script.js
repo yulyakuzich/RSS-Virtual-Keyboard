@@ -106,6 +106,7 @@ function renderPage() {
       }
       keyElement.setAttribute('data-code', key.code);
       keyElement.addEventListener('mousedown', (e) => {
+        keyElement.classList.add('button_active');
         e.preventDefault();
         textarea.focus();
         const startPos = textarea.selectionStart;
@@ -116,6 +117,9 @@ function renderPage() {
         textarea.selectionEnd = startPos + key.defaultText.length;
         const event = new KeyboardEvent('keydown', { code: key.defaultText });
         textarea.dispatchEvent(event);
+      });
+      keyElement.addEventListener('mouseup', () => {
+        keyElement.classList.remove('button_active');
       });
       rowElement.append(keyElement);
     }
