@@ -77,7 +77,7 @@ const ALL_KEYS = [
 
 // rendering page
 const body = document.getElementsByTagName('body')[0];
-let currentLanguage = 'en';
+let currentLanguage = localStorage.getItem('language') ? localStorage.getItem('language') : 'en';
 let cpasLockPressed = false;
 let shiftPressed = false;
 
@@ -176,6 +176,7 @@ function renderPage() {
 
         if (shiftPressed && key.code === 'ControlLeft') {
           currentLanguage = currentLanguage === 'en' ? 'ru' : 'en';
+          localStorage.setItem('language', currentLanguage);
         }
 
         const charObj = {
@@ -188,9 +189,6 @@ function renderPage() {
             ru: key.ruShiftText,
           },
         };
-
-        console.log(charObj.shift[currentLanguage]);
-        console.log(currentLanguage);
 
         const charToAdd = cpasLockPressed || shiftPressed
           ? charObj.shift[currentLanguage]
