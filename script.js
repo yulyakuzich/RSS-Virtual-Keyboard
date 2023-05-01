@@ -155,15 +155,15 @@ function renderPage() {
           if (allPreviusText.includes('\n')) {
             const newSubString = allPreviusText.split('\n')[allPreviusText.split('\n').length - 2];
             if (newSubString.length >= positionInCurrentLine) {
-              textarea.selectionEnd = textarea.selectionEnd - allPreviusText.split('\n')[[allPreviusText.split('\n').length - 2]].length - positionInCurrentLine - 1;
-              textarea.selectionStart = textarea.selectionStart - allPreviusText.split('\n')[[allPreviusText.split('\n').length - 2]].length - positionInCurrentLine - 1;
+              textarea.selectionStart -= allPreviusText.split('\n')[[allPreviusText.split('\n').length - 2]].length + 1;
+              textarea.selectionEnd -= allPreviusText.split('\n')[[allPreviusText.split('\n').length - 2]].length + 1;
             } else {
-              textarea.selectionEnd -= allPreviusText.length;
-              textarea.selectionStart -= allPreviusText.length;
+              textarea.selectionStart = allPreviusText.length - positionInCurrentLine - 1;
+              textarea.selectionEnd = allPreviusText.length - positionInCurrentLine - 1;
             }
           } else {
-            textarea.selectionEnd = textarea.startPos;
             textarea.selectionStart = textarea.startPos;
+            textarea.selectionEnd = textarea.startPos;
           }
         }
 
@@ -197,6 +197,7 @@ function renderPage() {
         textarea.value = textarea.value.substring(0, startPos)
           + (key.isNotInput ? '' : charToAdd)
           + (key.defaultText === 'return' ? '\n' : '')
+          + (key.defaultText === 'tab' ? '\u0009' : '')
           + textarea.value.substring(endPos, textarea.value.length);
       });
 
@@ -228,6 +229,9 @@ function renderPage() {
   const buttons = Array.from(document.querySelectorAll('.button'));
 
   function handleKayDown(e) {
+    if (e.code === 'Tab') {
+      e.preventDefault();
+    }
     textarea.focus();
     return buttons.find((b) => b.attributes['data-code'].value === e.code).classList.add('button_active');
   }
