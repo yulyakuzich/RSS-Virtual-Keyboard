@@ -174,7 +174,28 @@ function renderPage() {
           shiftPressed = !shiftPressed;
         }
 
-        const charToAdd = cpasLockPressed || shiftPressed ? key.shiftText : key.defaultText;
+        if (shiftPressed && key.code === 'ControlLeft') {
+          currentLanguage = currentLanguage === 'en' ? 'ru' : 'en';
+        }
+
+        const charObj = {
+          default: {
+            en: key.defaultText,
+            ru: key.ruText,
+          },
+          shift: {
+            en: key.shiftText,
+            ru: key.ruShiftText,
+          },
+        };
+
+        console.log(charObj.shift[currentLanguage]);
+        console.log(currentLanguage);
+
+        const charToAdd = cpasLockPressed || shiftPressed
+          ? charObj.shift[currentLanguage]
+          : charObj.default[currentLanguage];
+
         textarea.value = textarea.value.substring(0, startPos)
           + (key.isNotInput ? '' : charToAdd)
           + (key.defaultText === 'return' ? '\n' : '')
