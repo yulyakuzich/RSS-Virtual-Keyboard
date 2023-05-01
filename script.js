@@ -67,7 +67,7 @@ const ALL_KEYS = [
     { code: 'ControlLeft', defaultText: 'control', isNotInput: true },
     { code: 'AltLeft', defaultText: 'option', isNotInput: true },
     { code: 'MetaLeft', defaultText: 'cmd', isNotInput: true },
-    { code: 'Space', defaultText: ' ', shiftText: ' ', isWide: true },
+    { code: 'Space', defaultText: ' ', shiftText: ' ', ruText: ' ', ruShiftText: ' ', isWide: true },
     { code: 'MetaRight', defaultText: 'cmd', isNotInput: true },
     { code: 'AltRight', defaultText: 'option', isNotInput: true },
     { code: 'ArrowLeft', defaultText: '◄', isNotInput: true },
