@@ -122,7 +122,7 @@ function renderPage() {
     for (let index = 0; index < row.length; index += 1) {
       const key = row[index];
       const keyElement = createElement('div', 'button');
-      keyElement.append(createElement('span').innerHTML = key.defaultText);
+      keyElement.append(createElement('span').innerHTML = currentLanguage === 'en' ? key.defaultText : key?.ruText || key.defaultText);
       if (key.isWide) {
         keyElement.classList.add('button_wide');
       }
@@ -236,6 +236,7 @@ function renderPage() {
           shiftPressed = false;
           renderKeys();
           Array.from(document.querySelectorAll('.button')).find((b) => b.attributes['data-code'].value === 'ShiftLeft').classList.remove('button_active');
+          Array.from(document.querySelectorAll('.button')).find((b) => b.attributes['data-code'].value === 'ShiftRight').classList.remove('button_active');
         }
         keyElement.classList.remove('button_active');
       });
