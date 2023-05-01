@@ -108,7 +108,7 @@ body {
 }
 .button_active {
 	background: rgb(90, 134, 217);
-	border-radius: 50%;
+	border-radius: 45px;
 }
 .button_wide {
 	flex: 1;
