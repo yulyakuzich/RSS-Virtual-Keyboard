@@ -66,7 +66,7 @@ const ALL_KEYS = [
     { code: 'ControlLeft', defaultText: 'control', isNotInput: true },
     { code: 'AltLeft', defaultText: 'option', isNotInput: true },
     { code: 'MetaLeft', defaultText: 'cmd', isNotInput: true },
-    { code: 'Space', defaultText: ' ', isWide: true },
+    { code: 'Space', defaultText: ' ', shiftText: ' ', isWide: true },
     { code: 'MetaRight', defaultText: 'cmd', isNotInput: true },
     { code: 'AltRight', defaultText: 'option', isNotInput: true },
     { code: 'ArrowLeft', defaultText: '◄', isNotInput: true },
@@ -79,6 +79,7 @@ const ALL_KEYS = [
 const body = document.getElementsByTagName('body')[0];
 let currentLanguage = 'en';
 let cpasLockPressed = false;
+let shiftPressed = false;
 
 function renderPage() {
   function createElement(tag, className) {
@@ -169,8 +170,11 @@ function renderPage() {
         if (key.code === 'CapsLock') {
           cpasLockPressed = !cpasLockPressed;
         }
+        if (key.code === 'ShiftLeft' || key.code === 'ShiftRight') {
+          shiftPressed = !shiftPressed;
+        }
 
-        const charToAdd = cpasLockPressed ? key.shiftText : key.defaultText;
+        const charToAdd = cpasLockPressed || shiftPressed ? key.shiftText : key.defaultText;
         textarea.value = textarea.value.substring(0, startPos)
           + (key.isNotInput ? '' : charToAdd)
           + (key.defaultText === 'return' ? '\n' : '')
@@ -181,6 +185,13 @@ function renderPage() {
       keyElement.addEventListener('mouseup', () => {
         if (key.code === 'CapsLock' && cpasLockPressed) {
           return;
+        }
+        if ((key.code === 'ShiftLeft' || key.code === 'ShiftRight') && shiftPressed) {
+          return;
+        }
+        if (shiftPressed) {
+          shiftPressed = false;
+          Array.from(document.querySelectorAll('.button')).find((b) => b.attributes['data-code'].value === 'ShiftLeft').classList.remove('button_active');
         }
         keyElement.classList.remove('button_active');
       });
