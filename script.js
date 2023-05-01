@@ -110,24 +110,63 @@ function renderPage() {
         e.preventDefault();
         textarea.focus();
         const startPos = textarea.selectionStart;
-        console.log(startPos);
-        console.log(textarea.value);
         const endPos = textarea.selectionEnd;
         if (key.code === 'Backspace' && textarea.value.length) {
           textarea.value = textarea.value.substring(0, textarea.value.length - 1);
         }
 
-        // if (key.code === 'ArrowLeft') {
-        //   textarea.setSelectionRange(textarea.selectionEnd-1, textarea.selectionEnd-1);
-        // }
+        if (key.code === 'ArrowLeft') {
+          textarea.selectionStart -= 1;
+          textarea.selectionEnd -= 1;
+        }
+        if (key.code === 'ArrowRight') {
+          textarea.selectionEnd += 1;
+          textarea.selectionStart += 1;
+        }
+        if (key.code === 'ArrowDown') {
+          const currentLineBeginsAt = textarea.value.slice(0, textarea.selectionEnd).split('').findLastIndex((el) => el === '\n') + 1;
+          const positionInCurrentLine = textarea.selectionEnd - currentLineBeginsAt;
+          const allNextText = textarea.value.slice(textarea.selectionEnd, textarea.value.length);
+          if (allNextText.includes('\n')) {
+            const newSubString = allNextText.split('\n')[1];
+            if (newSubString.length >= positionInCurrentLine) {
+              textarea.selectionEnd = textarea.selectionEnd + allNextText.split('\n')[0].length + positionInCurrentLine + 1;
+              textarea.selectionStart = textarea.selectionStart + allNextText.split('\n')[0].length + positionInCurrentLine + 1;
+            } else {
+              textarea.selectionEnd += allNextText.length;
+              textarea.selectionStart += allNextText.length;
+            }
+          } else {
+            textarea.selectionEnd = textarea.value.length;
+            textarea.selectionStart = textarea.value.length;
+          }
+        }
+        if (key.code === 'ArrowUp') {
+          const currentLineBeginsAt = textarea.value.slice(0, textarea.selectionEnd).split('').findLastIndex((el) => el === '\n') + 1;
+          const positionInCurrentLine = textarea.selectionEnd - currentLineBeginsAt;
+          const allPreviusText = textarea.value.slice(0, textarea.selectionEnd);
+          if (allPreviusText.includes('\n')) {
+            const newSubString = allPreviusText.split('\n')[allPreviusText.split('\n').length - 2];
+            if (newSubString.length >= positionInCurrentLine) {
+              textarea.selectionEnd = textarea.selectionEnd - allPreviusText.split('\n')[[allPreviusText.split('\n').length - 2]].length - positionInCurrentLine - 1;
+              textarea.selectionStart = textarea.selectionStart - allPreviusText.split('\n')[[allPreviusText.split('\n').length - 2]].length - positionInCurrentLine - 1;
+            } else {
+              textarea.selectionEnd -= allPreviusText.length;
+              textarea.selectionStart -= allPreviusText.length;
+            }
+          } else {
+            textarea.selectionEnd = textarea.startPos;
+            textarea.selectionStart = textarea.startPos;
+          }
+        }
         textarea.value = textarea.value.substring(0, startPos)
           + (key.isNotInput ? '' : key.defaultText)
           + (key.defaultText === 'return' ? '\n' : '')
           + textarea.value.substring(endPos, textarea.value.length);
-        textarea.selectionStart = startPos + key.defaultText.length;
-        textarea.selectionEnd = startPos + key.defaultText.length;
-        const event = new KeyboardEvent('keydown', { code: key.defaultText });
-        textarea.dispatchEvent(event);
+        // textarea.selectionStart = startPos + key.defaultText.length;
+        // textarea.selectionEnd = startPos + key.defaultText.length;
+        // const event = new KeyboardEvent('keydown', { code: key.defaultText });
+        // textarea.dispatchEvent(event);
       });
 
       keyElement.addEventListener('mouseup', () => {
