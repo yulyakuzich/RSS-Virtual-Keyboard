@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable object-curly-newline */
 const ALL_KEYS = [
   [
@@ -88,6 +89,24 @@ function renderPage() {
     return element;
   }
 
+  function renderKeys() {
+    Array.from(document.querySelectorAll('.button'))
+      .map((el) => {
+        const currentKey = ALL_KEYS.flat().find((item) => item.code === el.getAttribute('data-code'));
+        const newSymbol = cpasLockPressed || shiftPressed
+          ? currentLanguage === 'en'
+            ? currentKey?.shiftText || currentKey.defaultText
+            : currentKey?.ruShiftText || currentKey.defaultText
+          : currentLanguage === 'en'
+            ? currentKey.defaultText
+            : currentKey?.ruText || currentKey.defaultText;
+
+        // eslint-disable-next-line no-param-reassign
+        el.innerHTML = newSymbol;
+        return null;
+      });
+  }
+
   const container = createElement('div', 'container');
   body.append(container);
   const title = createElement('h1', 'title');
@@ -169,14 +188,17 @@ function renderPage() {
 
         if (key.code === 'CapsLock') {
           cpasLockPressed = !cpasLockPressed;
+          renderKeys();
         }
         if (key.code === 'ShiftLeft' || key.code === 'ShiftRight') {
           shiftPressed = !shiftPressed;
+          renderKeys();
         }
 
         if (shiftPressed && key.code === 'ControlLeft') {
           currentLanguage = currentLanguage === 'en' ? 'ru' : 'en';
           localStorage.setItem('language', currentLanguage);
+          renderKeys();
         }
 
         const charObj = {
@@ -207,10 +229,12 @@ function renderPage() {
           return;
         }
         if ((key.code === 'ShiftLeft' || key.code === 'ShiftRight') && shiftPressed) {
+          renderKeys();
           return;
         }
         if (shiftPressed) {
           shiftPressed = false;
+          renderKeys();
           Array.from(document.querySelectorAll('.button')).find((b) => b.attributes['data-code'].value === 'ShiftLeft').classList.remove('button_active');
         }
         keyElement.classList.remove('button_active');
