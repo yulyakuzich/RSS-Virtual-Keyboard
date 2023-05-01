@@ -62,7 +62,7 @@ const ALL_KEYS = [
     { code: 'ArrowUp', defaultText: '▲', isNotInput: true },
     { code: 'ShiftRight', defaultText: 'shift', isNotInput: true },
   ],
-  [
+  [{ code: 'fn', defaultText: 'fn', isNotInput: true },
     { code: 'ControlLeft', defaultText: 'control', isNotInput: true },
     { code: 'AltLeft', defaultText: 'option', isNotInput: true },
     { code: 'MetaLeft', defaultText: 'cmd', isNotInput: true },
@@ -77,6 +77,8 @@ const ALL_KEYS = [
 
 // rendering page
 const body = document.getElementsByTagName('body')[0];
+let currentLanguage = 'en';
+let cpasLockPressed = false;
 
 function renderPage() {
   function createElement(tag, className) {
@@ -105,6 +107,7 @@ function renderPage() {
         keyElement.classList.add('button_wide');
       }
       keyElement.setAttribute('data-code', key.code);
+      // eslint-disable-next-line no-loop-func
       keyElement.addEventListener('mousedown', (e) => {
         keyElement.classList.add('button_active');
         e.preventDefault();
@@ -119,10 +122,12 @@ function renderPage() {
           textarea.selectionStart -= 1;
           textarea.selectionEnd -= 1;
         }
+
         if (key.code === 'ArrowRight') {
           textarea.selectionEnd += 1;
           textarea.selectionStart += 1;
         }
+
         if (key.code === 'ArrowDown') {
           const currentLineBeginsAt = textarea.value.slice(0, textarea.selectionEnd).split('').findLastIndex((el) => el === '\n') + 1;
           const positionInCurrentLine = textarea.selectionEnd - currentLineBeginsAt;
@@ -141,6 +146,7 @@ function renderPage() {
             textarea.selectionStart = textarea.value.length;
           }
         }
+
         if (key.code === 'ArrowUp') {
           const currentLineBeginsAt = textarea.value.slice(0, textarea.selectionEnd).split('').findLastIndex((el) => el === '\n') + 1;
           const positionInCurrentLine = textarea.selectionEnd - currentLineBeginsAt;
@@ -159,17 +165,23 @@ function renderPage() {
             textarea.selectionStart = textarea.startPos;
           }
         }
+
+        if (key.code === 'CapsLock') {
+          cpasLockPressed = !cpasLockPressed;
+        }
+
+        const charToAdd = cpasLockPressed ? key.shiftText : key.defaultText;
         textarea.value = textarea.value.substring(0, startPos)
-          + (key.isNotInput ? '' : key.defaultText)
+          + (key.isNotInput ? '' : charToAdd)
           + (key.defaultText === 'return' ? '\n' : '')
           + textarea.value.substring(endPos, textarea.value.length);
-        // textarea.selectionStart = startPos + key.defaultText.length;
-        // textarea.selectionEnd = startPos + key.defaultText.length;
-        // const event = new KeyboardEvent('keydown', { code: key.defaultText });
-        // textarea.dispatchEvent(event);
       });
 
+      // eslint-disable-next-line no-loop-func
       keyElement.addEventListener('mouseup', () => {
+        if (key.code === 'CapsLock' && cpasLockPressed) {
+          return;
+        }
         keyElement.classList.remove('button_active');
       });
       rowElement.append(keyElement);
