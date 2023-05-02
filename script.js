@@ -248,7 +248,7 @@ function renderPage() {
   descriptionOne.innerHTML = 'Клавиатура создана в операционной системе iOS';
   container.append(descriptionOne);
   const descriptionTwo = createElement('p', 'description');
-  descriptionTwo.innerHTML = 'Для переключения языка комбинация: левыe  shift + ctrl';
+  descriptionTwo.innerHTML = 'Комбинация для переключения языка на виртуальной клавиатуре: левыe  shift + ctrl';
   container.append(descriptionTwo);
 
   const buttons = Array.from(document.querySelectorAll('.button'));
