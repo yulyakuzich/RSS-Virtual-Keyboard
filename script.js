@@ -257,7 +257,17 @@ function renderPage() {
     if (e.code === 'Tab') {
       e.preventDefault();
     }
+
     textarea.focus();
+    if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+      shiftPressed = !shiftPressed;
+      renderKeys();
+    }
+    if (shiftPressed && e.code === 'ControlLeft') {
+      currentLanguage = currentLanguage === 'en' ? 'ru' : 'en';
+      localStorage.setItem('language', currentLanguage);
+      renderKeys();
+    }
     return buttons.find((b) => b.attributes['data-code'].value === e.code).classList.add('button_active');
   }
   function handleKeyUp(e) {
